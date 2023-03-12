@@ -21,7 +21,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchAllCats } from '../../redux/slices/catSlice'
 import { RootState } from "../../redux/store";
-import { Link as RouterLink } from "react-router-dom"
+import { Link as RouterLink, useParams } from "react-router-dom"
 import MuLink from "@mui/material/Link"
 
 
@@ -47,6 +47,7 @@ const LeftSidebar = styled(Drawer)(({ theme }) => ({
 const Sidebar = ({ isHamburgerOpen, handleHamburger }: { isHamburgerOpen: boolean, handleHamburger: any }) => {
     const theme = useTheme();
     const isTablet = useMediaQuery(theme.breakpoints.between('xs', 'md'));
+    const { id }: any = useParams()
 
     const dispatch = useDispatch()
     const { allCats, status, error } = useSelector((state: RootState) => state.cat);
@@ -82,7 +83,7 @@ const Sidebar = ({ isHamburgerOpen, handleHamburger }: { isHamburgerOpen: boolea
                                 sx={{ color: "black", textDecoration: "none" }}
                             >
                                 <ListItem key={cat?.catName} disablePadding >
-                                    <ListItemButton>
+                                    <ListItemButton >
                                         <ListItemText primary={cat?.catName} />
                                         <Chip label={10} onClick={() => alert('clicked')} />
                                     </ListItemButton>
@@ -95,7 +96,7 @@ const Sidebar = ({ isHamburgerOpen, handleHamburger }: { isHamburgerOpen: boolea
                 <LeftSidebar variant="permanent" open>
                     <DrawerHeader />
                     <List>
-                        {allCats?.map((cat, index) => (
+                        {allCats?.map((cat) => (
                             <MuLink
                                 component={RouterLink}
                                 to={`/cats/${cat?.id}`}
@@ -111,8 +112,9 @@ const Sidebar = ({ isHamburgerOpen, handleHamburger }: { isHamburgerOpen: boolea
                         ))}
                     </List>
                 </LeftSidebar>
-            )}
-        </Box>
+            )
+            }
+        </Box >
     )
 };
 
