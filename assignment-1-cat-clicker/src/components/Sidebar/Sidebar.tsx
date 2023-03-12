@@ -1,11 +1,93 @@
-import Box from '@mui/material/Box';
+import React from 'react';
+import { styled } from "@mui/material/styles"
+import {
+    AppBar,
+    Box,
+    Chip,
+    Drawer,
+    IconButton,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+    Toolbar,
+    Typography,
+    useMediaQuery,
+    useTheme,
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import Navbar from '../Navbar/Navbar';
 
-const Sidebar = () => {
+const drawerWidth = 240;
+
+const DrawerHeader = styled('div')(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+}));
+
+const LeftSidebar = styled(Drawer)(({ theme }) => ({
+    width: drawerWidth,
+    flexShrink: 0,
+    '& .MuiDrawer-paper': {
+        width: drawerWidth,
+    },
+}));
+
+const Sidebar = ({ isHamburgerOpen, handleHamburger }: { isHamburgerOpen: boolean, handleHamburger: any }) => {
+    const theme = useTheme();
+    const isTablet = useMediaQuery(theme.breakpoints.between('xs', 'md'));
+
     return (
-        <div>
-            
-        </div>
+        <Box sx={{ display: 'flex' }}>
+            {isTablet ? (
+                <Drawer
+                    variant="temporary"
+                    anchor="left"
+                    open={isHamburgerOpen}
+                    onClose={handleHamburger}
+                    sx={{
+                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                    }}
+                >
+                    <DrawerHeader>
+                        <IconButton onClick={handleHamburger}>
+                            <MenuIcon />
+                        </IconButton>
+                    </DrawerHeader>
+                    <List>
+                        {['Boots', 'Kiddos', 'Loona', 'Chinni', 'Ricky', 'Tabby'].map((text, index) => (
+                            <ListItem key={text} disablePadding>
+                                <ListItemButton>
+
+                                    <ListItemText primary={text} />
+                                    <Chip label={10} onClick={() => alert('clicked')} />
+                                </ListItemButton>
+                            </ListItem>
+                        ))}
+                    </List>
+                </Drawer>
+            ) : (
+                <LeftSidebar variant="permanent" open>
+                    <DrawerHeader />
+                    <List>
+                        {['Boots', 'Kiddos', 'Loona', 'Chinni', 'Ricky', 'Tabby'].map((text, index) => (
+                            <ListItem key={text} disablePadding>
+                                <ListItemButton>
+                                    <ListItemText primary={text} />
+                                    <Chip label={10} onClick={() => alert('clicked')} />
+                                </ListItemButton>
+                            </ListItem>
+                        ))}
+                    </List>
+                </LeftSidebar>
+            )}
+        </Box>
     )
-}
+};
 
 export default Sidebar

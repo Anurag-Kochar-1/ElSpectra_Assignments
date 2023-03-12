@@ -1,12 +1,39 @@
-import React from 'react'
+import { useState } from 'react'
 import Navbar from '../components/Navbar/Navbar'
 import Sidebar from '../components/Sidebar/Sidebar'
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
+
+    const [isHamburgerOpen, setIsHamburgerOpen] = useState<boolean>(false);
+
+    const handleHamburger = () => {
+        setIsHamburgerOpen(!isHamburgerOpen);
+    };
+
+
+
     return (
-        <div>
-            {children}
-        </div>
+        <Box
+            sx={{ width: "100%" }}
+        >
+            <Stack>
+                <Navbar handleHamburger={handleHamburger} />
+
+                <Stack
+                    direction={'row'}
+                    justifyContent="center"
+                    alignItems="center"
+                    spacing={2}
+                >
+
+                    <Sidebar isHamburgerOpen={isHamburgerOpen} handleHamburger={handleHamburger} />
+
+                </Stack>
+                {children}
+            </Stack>
+        </Box>
     )
 }
 
