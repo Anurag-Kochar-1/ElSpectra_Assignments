@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { Link } from 'react-router-dom';
 import { styled } from "@mui/material/styles"
 import {
@@ -17,7 +18,6 @@ import {
     useTheme,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import Navbar from '../Navbar/Navbar';
 
 const drawerWidth = 240;
 
@@ -42,6 +42,8 @@ const Sidebar = ({ isHamburgerOpen, handleHamburger }: { isHamburgerOpen: boolea
     const theme = useTheme();
     const isTablet = useMediaQuery(theme.breakpoints.between('xs', 'md'));
 
+
+
     return (
         <Box sx={{ display: 'flex' }}>
             {isTablet ? (
@@ -62,9 +64,8 @@ const Sidebar = ({ isHamburgerOpen, handleHamburger }: { isHamburgerOpen: boolea
                     <List>
                         {['Boots', 'Kiddos', 'Loona', 'Chinni', 'Ricky', 'Tabby'].map((text, index) => (
                             <Link to={`/cats/${text}`}>
-                                <ListItem key={text} disablePadding>
+                                <ListItem key={text} disablePadding >
                                     <ListItemButton>
-
                                         <ListItemText primary={text} />
                                         <Chip label={10} onClick={() => alert('clicked')} />
                                     </ListItemButton>

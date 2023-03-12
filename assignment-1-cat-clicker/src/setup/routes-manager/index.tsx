@@ -8,7 +8,7 @@ const CatPage = lazy(() => import('../../pages/CatPage/CatPage'))
 const index = () => {
   return (
     <Suspense
-      fallback={<div> "a" </div>}>
+      fallback={<div> LOADING.......... </div>}>
 
       <Routes>
         <Route path='/' element={<HomePage />} />

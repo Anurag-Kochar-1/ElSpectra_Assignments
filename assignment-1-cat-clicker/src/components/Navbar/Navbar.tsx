@@ -1,5 +1,6 @@
 import { AppBar, IconButton, Toolbar, Typography } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu';
+import {Link} from "react-router-dom"
 
 const Navbar = ({ handleHamburger }: { handleHamburger: any }) => {
   return (
@@ -14,7 +15,9 @@ const Navbar = ({ handleHamburger }: { handleHamburger: any }) => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h5" noWrap>
+          <Link to={"/"}>
           Cat Clicker
+          </Link>
         </Typography>
       </Toolbar>
     </AppBar>
