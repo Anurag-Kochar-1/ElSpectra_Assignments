@@ -27,11 +27,10 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                     alignItems="center"
                     spacing={2}
                 >
-
                     <Sidebar isHamburgerOpen={isHamburgerOpen} handleHamburger={handleHamburger} />
+                    {children}
 
                 </Stack>
-                {children}
             </Stack>
         </Box>
     )

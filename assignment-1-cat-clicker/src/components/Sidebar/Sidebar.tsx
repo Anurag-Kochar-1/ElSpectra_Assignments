@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 import { styled } from "@mui/material/styles"
 import {
     AppBar,
@@ -61,13 +61,15 @@ const Sidebar = ({ isHamburgerOpen, handleHamburger }: { isHamburgerOpen: boolea
                     </DrawerHeader>
                     <List>
                         {['Boots', 'Kiddos', 'Loona', 'Chinni', 'Ricky', 'Tabby'].map((text, index) => (
-                            <ListItem key={text} disablePadding>
-                                <ListItemButton>
+                            <Link to={`/cats/${text}`}>
+                                <ListItem key={text} disablePadding>
+                                    <ListItemButton>
 
-                                    <ListItemText primary={text} />
-                                    <Chip label={10} onClick={() => alert('clicked')} />
-                                </ListItemButton>
-                            </ListItem>
+                                        <ListItemText primary={text} />
+                                        <Chip label={10} onClick={() => alert('clicked')} />
+                                    </ListItemButton>
+                                </ListItem>
+                            </Link>
                         ))}
                     </List>
                 </Drawer>
@@ -76,12 +78,14 @@ const Sidebar = ({ isHamburgerOpen, handleHamburger }: { isHamburgerOpen: boolea
                     <DrawerHeader />
                     <List>
                         {['Boots', 'Kiddos', 'Loona', 'Chinni', 'Ricky', 'Tabby'].map((text, index) => (
-                            <ListItem key={text} disablePadding>
-                                <ListItemButton>
-                                    <ListItemText primary={text} />
-                                    <Chip label={10} onClick={() => alert('clicked')} />
-                                </ListItemButton>
-                            </ListItem>
+                            <Link to={`/cats/${text}`}>
+                                <ListItem key={text} disablePadding>
+                                    <ListItemButton>
+                                        <ListItemText primary={text} />
+                                        <Chip label={10} onClick={() => alert('clicked')} />
+                                    </ListItemButton>
+                                </ListItem>
+                            </Link>
                         ))}
                     </List>
                 </LeftSidebar>
