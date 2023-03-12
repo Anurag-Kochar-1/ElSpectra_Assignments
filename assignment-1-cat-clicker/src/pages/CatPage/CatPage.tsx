@@ -4,6 +4,9 @@ import Typography from "@mui/material/Typography/Typography"
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCat } from '../../redux/slices/catSlice'
 import { RootState } from "../../redux/store";
+import { Box, Stack } from '@mui/material';
+
+import AnimalCard from "../../components/AnimalCard/AnimalCard"
 
 const CatPage = () => {
     const { id }: any = useParams()
@@ -19,18 +22,30 @@ const CatPage = () => {
         return <div>Loading...</div>;
     }
 
-    if (status === 'FAILED') { 
+    if (status === 'FAILED') {
         return <div>{JSON.stringify(error)}</div>;
     }
 
     return (
-        <div>
-            <Typography variant="h1" component="h1">
+        <Box
+            sx={{ width: "100%" }}
+        >
+            <Stack
+                direction={'row'}
+                justifyContent="center"
+                alignItems="center"
+                spacing={2}
+            >
+
+                <AnimalCard cat={cat} />
+            </Stack>
+
+            {/* <Typography variant="h1" component="h1">
                 {cat?.catName}
-                {/* {status === 'FAILED' && "failed"} */}
-                {/* {status === 'LOADING' && "LOADING"} */}
             </Typography>
-        </div>
+            <img src={cat?.catImageURL} alt={'test'} />; */}
+
+        </Box>
     )
 }
 
