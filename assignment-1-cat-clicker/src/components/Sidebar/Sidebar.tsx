@@ -19,6 +19,11 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchAllCats } from '../../redux/slices/catSlice'
+import { RootState } from "../../redux/store";
+
+
 const drawerWidth = 240;
 
 const DrawerHeader = styled('div')(({ theme }) => ({
@@ -42,6 +47,22 @@ const Sidebar = ({ isHamburgerOpen, handleHamburger }: { isHamburgerOpen: boolea
     const theme = useTheme();
     const isTablet = useMediaQuery(theme.breakpoints.between('xs', 'md'));
 
+    const dispatch = useDispatch()
+    const { allCats, status, error } = useSelector((state: RootState) => state.cat);
+
+    useEffect(() => {
+        if (status === 'IDLE') {
+            dispatch(fetchAllCats() as any);
+        }
+    }, [status, dispatch]);
+
+    if (status === 'LOADING') {
+        return <div>Loading...</div>;
+    }
+
+    if (status === 'FAILED') {
+        return <div>{JSON.stringify(error)}</div>;
+    }
 
 
     return (
@@ -62,11 +83,11 @@ const Sidebar = ({ isHamburgerOpen, handleHamburger }: { isHamburgerOpen: boolea
                         </IconButton>
                     </DrawerHeader>
                     <List>
-                        {['Boots', 'Kiddos', 'Loona', 'Chinni', 'Ricky', 'Tabby'].map((text, index) => (
-                            <Link to={`/cats/${text}`}>
-                                <ListItem key={text} disablePadding >
+                        {allCats?.map((cat, index) => (
+                            <Link to={`/cats/${cat?.catName}`}>
+                                <ListItem key={cat?.catName} disablePadding >
                                     <ListItemButton>
-                                        <ListItemText primary={text} />
+                                        <ListItemText primary={cat?.catName} />
                                         <Chip label={10} onClick={() => alert('clicked')} />
                                     </ListItemButton>
                                 </ListItem>
@@ -78,11 +99,11 @@ const Sidebar = ({ isHamburgerOpen, handleHamburger }: { isHamburgerOpen: boolea
                 <LeftSidebar variant="permanent" open>
                     <DrawerHeader />
                     <List>
-                        {['Boots', 'Kiddos', 'Loona', 'Chinni', 'Ricky', 'Tabby'].map((text, index) => (
-                            <Link to={`/cats/${text}`}>
-                                <ListItem key={text} disablePadding>
+                        {allCats?.map((cat, index) => (
+                            <Link to={`/cats/${cat?.catName}`}>
+                                <ListItem key={cat?.catName} disablePadding >
                                     <ListItemButton>
-                                        <ListItemText primary={text} />
+                                        <ListItemText primary={cat?.catName} />
                                         <Chip label={10} onClick={() => alert('clicked')} />
                                     </ListItemButton>
                                 </ListItem>
