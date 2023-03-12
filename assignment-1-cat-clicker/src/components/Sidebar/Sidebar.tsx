@@ -1,5 +1,4 @@
 import { useEffect } from "react"
-import { Link } from 'react-router-dom';
 import { styled } from "@mui/material/styles"
 import {
     AppBar,
@@ -22,6 +21,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchAllCats } from '../../redux/slices/catSlice'
 import { RootState } from "../../redux/store";
+import { Link as RouterLink } from "react-router-dom"
+import MuLink from "@mui/material/Link"
 
 
 const drawerWidth = 240;
@@ -56,18 +57,9 @@ const Sidebar = ({ isHamburgerOpen, handleHamburger }: { isHamburgerOpen: boolea
         }
     }, [status, dispatch]);
 
-    if (status === 'LOADING') {
-        return <div>Loading...</div>;
-    }
-
-    if (status === 'FAILED') {
-        return <div>{JSON.stringify(error)}</div>;
-    }
-
-
     return (
         <Box sx={{ display: 'flex' }}>
-            {isTablet ? (
+            {isTablet && status !== 'LOADING' && status !== 'FAILED' ? (
                 <Drawer
                     variant="temporary"
                     anchor="left"
@@ -84,14 +76,18 @@ const Sidebar = ({ isHamburgerOpen, handleHamburger }: { isHamburgerOpen: boolea
                     </DrawerHeader>
                     <List>
                         {allCats?.map((cat, index) => (
-                            <Link to={`/cats/${cat?.catName}`}>
+                            <MuLink
+                                component={RouterLink}
+                                to={`/cats/${cat?.id}`}
+                                sx={{ color: "black", textDecoration: "none" }}
+                            >
                                 <ListItem key={cat?.catName} disablePadding >
                                     <ListItemButton>
                                         <ListItemText primary={cat?.catName} />
                                         <Chip label={10} onClick={() => alert('clicked')} />
                                     </ListItemButton>
                                 </ListItem>
-                            </Link>
+                            </MuLink>
                         ))}
                     </List>
                 </Drawer>
@@ -100,14 +96,18 @@ const Sidebar = ({ isHamburgerOpen, handleHamburger }: { isHamburgerOpen: boolea
                     <DrawerHeader />
                     <List>
                         {allCats?.map((cat, index) => (
-                            <Link to={`/cats/${cat?.catName}`}>
+                            <MuLink
+                                component={RouterLink}
+                                to={`/cats/${cat?.id}`}
+                                sx={{ color: "black", textDecoration: "none" }}
+                            >
                                 <ListItem key={cat?.catName} disablePadding >
                                     <ListItemButton>
                                         <ListItemText primary={cat?.catName} />
                                         <Chip label={10} onClick={() => alert('clicked')} />
                                     </ListItemButton>
                                 </ListItem>
-                            </Link>
+                            </MuLink>
                         ))}
                     </List>
                 </LeftSidebar>

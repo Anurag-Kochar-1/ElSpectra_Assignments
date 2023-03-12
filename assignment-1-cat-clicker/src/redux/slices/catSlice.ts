@@ -1,16 +1,18 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import { ICat } from "../../interfaces/ICatInterface"
-import { collection, getDocs } from "firebase/firestore"
+import { collection, doc, getDoc, getDocs } from "firebase/firestore"
 import { db } from "../../config/firebaseConfig"
 
 interface IInitialState {
-    allCats: ICat[] | []
+    allCats: ICat[] | [],
+    cat: ICat | any
     status: "IDLE" | "LOADING" | "SUCCESS" | "FAILED"
     error: null | unknown
 }
 
 const initialState: IInitialState = {
     allCats: [],
+    cat: {},
     status: 'IDLE',
     error: null,
 }
@@ -21,6 +23,14 @@ export const fetchAllCats = createAsyncThunk("cats/fetchAllCats", async () => {
     const data = res?.docs?.map((doc) => doc?.data())
     return data
 })
+
+export const fetchCat = createAsyncThunk("cats/fetchCat", async (id: string) => {
+    const catDocRef = doc(db, 'cats', id)
+    const res = await getDoc(catDocRef)
+    return res?.data()
+
+})
+
 
 const catSlice = createSlice({
     name: "cat",
@@ -41,8 +51,22 @@ const catSlice = createSlice({
             })
             .addCase(fetchAllCats.rejected, (state, action) => {
                 state.status = 'FAILED'
-                    state.error = action?.payload || null
+                state.error = action?.payload || null
             })
+
+            .addCase(fetchCat.pending, state => {
+                state.status = 'LOADING'
+            })
+            .addCase(fetchCat.fulfilled, (state, action) => {
+                state.status = 'SUCCESS'
+                state.cat = action.payload as ICat[]
+            })
+            .addCase(fetchCat.rejected, (state, action) => {
+                state.status = 'FAILED'
+                state.error = action?.payload || null
+            })
+
+
     }
 })
 
