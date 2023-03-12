@@ -4,13 +4,15 @@ import Typography from "@mui/material/Typography/Typography"
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCat } from '../../redux/slices/catSlice'
 import { RootState } from "../../redux/store";
-import { Box, Stack } from '@mui/material';
+import { Box, Stack, useMediaQuery, useTheme } from '@mui/material';
 
 import AnimalCard from "../../components/AnimalCard/AnimalCard"
+import AppForm from '../../components/AppForm/AppForm';
 
 const CatPage = () => {
+    const theme = useTheme();
+    const isTablet = useMediaQuery(theme?.breakpoints.between('xs', 'md'));
     const { id }: any = useParams()
-
     const dispatch = useDispatch()
     const { cat, status, error } = useSelector((state: RootState) => state.cat);
 
@@ -28,23 +30,18 @@ const CatPage = () => {
 
     return (
         <Box
-            sx={{ width: "100%" }}
+            sx={{ width: "100%", }}
         >
             <Stack
-                direction={'row'}
+                direction={isTablet ? "column" : "row"}
                 justifyContent="center"
                 alignItems="center"
                 spacing={2}
             >
 
                 <AnimalCard cat={cat} />
+                <AppForm />
             </Stack>
-
-            {/* <Typography variant="h1" component="h1">
-                {cat?.catName}
-            </Typography>
-            <img src={cat?.catImageURL} alt={'test'} />; */}
-
         </Box>
     )
 }

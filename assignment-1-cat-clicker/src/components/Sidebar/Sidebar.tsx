@@ -76,7 +76,7 @@ const Sidebar = ({ isHamburgerOpen, handleHamburger }: { isHamburgerOpen: boolea
                         </IconButton>
                     </DrawerHeader>
                     <List>
-                        {allCats?.map((cat, index) => (
+                        {allCats?.map((cat) => (
                             <MuLink
                                 component={RouterLink}
                                 to={`/cats/${cat?.id}`}
@@ -85,7 +85,7 @@ const Sidebar = ({ isHamburgerOpen, handleHamburger }: { isHamburgerOpen: boolea
                                 <ListItem key={cat?.catName} disablePadding >
                                     <ListItemButton >
                                         <ListItemText primary={cat?.catName} />
-                                        <Chip label={10} onClick={() => alert('clicked')} />
+                                        <Chip label={cat?.clickTimes} onClick={() => alert('clicked')} />
                                     </ListItemButton>
                                 </ListItem>
                             </MuLink>
@@ -105,7 +105,7 @@ const Sidebar = ({ isHamburgerOpen, handleHamburger }: { isHamburgerOpen: boolea
                                 <ListItem key={cat?.catName} disablePadding >
                                     <ListItemButton>
                                         <ListItemText primary={cat?.catName} />
-                                        <Chip label={10} onClick={() => alert('clicked')} />
+                                        <Chip label={cat?.clickTimes} onClick={() => alert('clicked')} />
                                     </ListItemButton>
                                 </ListItem>
                             </MuLink>

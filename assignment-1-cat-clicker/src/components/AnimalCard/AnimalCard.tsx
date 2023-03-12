@@ -41,7 +41,7 @@ export default function RecipeReviewCard({ cat }: { cat: ICat }) {
     };
 
     return (
-        <Card sx={{ maxWidth: 500, margin: 5 }}>
+        <Card sx={{ width: 400, margin: 5 }}>
             <Stack sx={{ padding: 2 }}>
                 <Typography variant="h6" gutterBottom>
                     {cat?.catName}
@@ -86,7 +86,7 @@ export default function RecipeReviewCard({ cat }: { cat: ICat }) {
 
             </CardContent>
             <CardActions sx={{ padding: 2 }}>
-                <Button size="small" variant='contained' color="primary">Share</Button>
+                <Button size="small" variant='outlined' color="primary">Share</Button>
             </CardActions>
         </Card >
     );
