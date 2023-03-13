@@ -1,26 +1,26 @@
 import {
   Box,
-  Paper,
   Button,
   Stack,
   TextField,
   ButtonGroup
 
 } from '@mui/material';
+import { ICat } from '../../interfaces/ICatInterface';
 
 
-const AppForm = () => {
+const AppForm = ({ cat }: { cat: ICat }) => {
+
+
   return (
     <Box
       display="flex"
       flexDirection="column"
-      boxShadow={5}
+      boxShadow={4}
       width={400}
       padding={2}
-    // sx={{backgroundColor: "red"}}
     >
 
-      {/* <Paper elevation={3} /> */}
 
       <Button size="medium" variant='outlined' color="primary">Open new form</Button>
 
@@ -32,9 +32,9 @@ const AppForm = () => {
         noValidate
         autoComplete="off"
       >
-        <TextField id="outlined-basic" label="Cat Name" variant="outlined" defaultValue={"Billa"} />
-        <TextField id="outlined-basic" label="Cat Image" variant="outlined" defaultValue={'cat/image'} />
-        <TextField id="outlined-basic" label="Cat Click" variant="outlined" defaultValue={10} />
+        <TextField id="outlined-basic" label="Cat Name" variant="outlined" value={cat?.catName} />
+        <TextField id="outlined-basic" label="Cat Image" variant="outlined" value={'cat/image'} />
+        <TextField id="outlined-basic" label="Cat Clicks" variant="outlined" value={cat?.clickTimes} />
 
         <ButtonGroup
           sx={{
@@ -42,7 +42,7 @@ const AppForm = () => {
             justifyContent: "space-evenly",
             gap: 2,
           }}>
-          <Button color='error' variant='contained'>Undo</Button>
+          <Button color='error' variant='contained' onClick={() => console.log(cat)}>Undo</Button>
           <Button color='success' variant='contained'>Save</Button>
         </ButtonGroup>
 

@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { styled } from "@mui/material/styles"
 import {
     AppBar,
@@ -23,6 +23,9 @@ import { fetchAllCats } from '../../redux/slices/catSlice'
 import { RootState } from "../../redux/store";
 import { Link as RouterLink, useParams } from "react-router-dom"
 import MuLink from "@mui/material/Link"
+import { increaseCatClicks } from "../../utils/increaseCatClicks";
+import { ICat } from "../../interfaces/ICatInterface";
+import SidebarList from "./SidebarList";
 
 
 const drawerWidth = 240;
@@ -44,13 +47,17 @@ const LeftSidebar = styled(Drawer)(({ theme }) => ({
     },
 }));
 
+
+
 const Sidebar = ({ isHamburgerOpen, handleHamburger }: { isHamburgerOpen: boolean, handleHamburger: any }) => {
+    
+
     const theme = useTheme();
     const isTablet = useMediaQuery(theme.breakpoints.between('xs', 'md'));
     const { id }: any = useParams()
 
     const dispatch = useDispatch()
-    const { allCats, status, error } = useSelector((state: RootState) => state.cat);
+    const { allCats, status, error, cat } = useSelector((state: RootState) => state.cat);
 
     useEffect(() => {
         if (status === 'IDLE') {
@@ -75,42 +82,12 @@ const Sidebar = ({ isHamburgerOpen, handleHamburger }: { isHamburgerOpen: boolea
                             <MenuIcon />
                         </IconButton>
                     </DrawerHeader>
-                    <List>
-                        {allCats?.map((cat) => (
-                            <MuLink
-                                component={RouterLink}
-                                to={`/cats/${cat?.id}`}
-                                sx={{ color: "black", textDecoration: "none" }}
-                            >
-                                <ListItem key={cat?.catName} disablePadding >
-                                    <ListItemButton >
-                                        <ListItemText primary={cat?.catName} />
-                                        <Chip label={cat?.clickTimes} onClick={() => alert('clicked')} />
-                                    </ListItemButton>
-                                </ListItem>
-                            </MuLink>
-                        ))}
-                    </List>
+                    <SidebarList allCats={allCats} />
                 </Drawer>
             ) : (
                 <LeftSidebar variant="permanent" open>
                     <DrawerHeader />
-                    <List>
-                        {allCats?.map((cat) => (
-                            <MuLink
-                                component={RouterLink}
-                                to={`/cats/${cat?.id}`}
-                                sx={{ color: "black", textDecoration: "none" }}
-                            >
-                                <ListItem key={cat?.catName} disablePadding >
-                                    <ListItemButton>
-                                        <ListItemText primary={cat?.catName} />
-                                        <Chip label={cat?.clickTimes} onClick={() => alert('clicked')} />
-                                    </ListItemButton>
-                                </ListItem>
-                            </MuLink>
-                        ))}
-                    </List>
+                    <SidebarList allCats={allCats} />
                 </LeftSidebar>
             )
             }

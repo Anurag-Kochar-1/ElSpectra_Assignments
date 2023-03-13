@@ -38,6 +38,13 @@ const catSlice = createSlice({
     reducers: {
         setAllCats: (state, action) => {
             state.allCats = action.payload
+        },
+        setCat: (state, action) => {
+            state.cat = action.payload
+        },
+
+        increaseCatClicks: (state) => {
+            state.cat.clickTimes++
         }
     },
     extraReducers: builder => {
@@ -59,7 +66,7 @@ const catSlice = createSlice({
             })
             .addCase(fetchCat.fulfilled, (state, action) => {
                 state.status = 'SUCCESS'
-                state.cat = action.payload as ICat[]
+                state.cat = action.payload as ICat
             })
             .addCase(fetchCat.rejected, (state, action) => {
                 state.status = 'FAILED'
@@ -71,7 +78,9 @@ const catSlice = createSlice({
 })
 
 export const {
-    setAllCats
+    setAllCats,
+    setCat,
+    increaseCatClicks
 } = catSlice.actions
 
 export default catSlice.reducer

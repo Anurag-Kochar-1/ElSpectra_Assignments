@@ -40,7 +40,7 @@ const CatPage = () => {
             >
 
                 <AnimalCard cat={cat} />
-                <AppForm />
+                <AppForm cat={cat}/>
             </Stack>
         </Box>
     )
