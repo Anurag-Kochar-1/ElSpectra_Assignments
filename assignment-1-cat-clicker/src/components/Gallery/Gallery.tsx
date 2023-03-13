@@ -35,6 +35,7 @@ const Gallery = ({ allCats, status, error, page, title }: IProps) => {
                 justifyContent="start"
                 alignItems="center"
                 spacing={2}
+                gap={2}
             >
                 {allCats?.map((cat) => {
                     return <AnimalCard cat={cat} page={page} />

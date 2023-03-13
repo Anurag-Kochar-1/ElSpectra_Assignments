@@ -16,7 +16,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
     return (
         <Box
-            sx={{ width: "100%" }}
+            sx={{ width: "100%", overflowX: "hidden" }}
         >
             <Stack>
                 <Navbar handleHamburger={handleHamburger} />

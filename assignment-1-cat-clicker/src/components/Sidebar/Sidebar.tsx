@@ -53,7 +53,7 @@ const Sidebar = ({ isHamburgerOpen, handleHamburger }: { isHamburgerOpen: boolea
 
 
     const theme = useTheme();
-    const isTablet = useMediaQuery(theme.breakpoints.between('xs', 'md'));
+    const isTablet = useMediaQuery(theme.breakpoints.between('xs', 'lg'));
     const { id }: any = useParams()
 
     const dispatch = useDispatch()
