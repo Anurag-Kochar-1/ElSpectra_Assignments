@@ -17,7 +17,7 @@ const Navbar = ({ handleHamburger }: { handleHamburger: any }) => {
         </IconButton>
 
         <MuLink component={RouterLink} to="/" sx={{ color: "black", textDecoration: "none" }}>
-          <Typography variant="h5" noWrap>
+          <Typography variant="h4" noWrap color="white">
             Cat Clicker
           </Typography>
         </MuLink>

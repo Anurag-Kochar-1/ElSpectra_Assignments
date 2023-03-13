@@ -1,13 +1,9 @@
 import { useState } from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
-import AppForm from '../AppForm/AppForm';
 import NewForm from './AddCatForm';
-import { useTheme } from '@emotion/react';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 const style = {
@@ -36,9 +32,7 @@ interface IProps {
 }
 
 export default function AppModal({ isModalOpen, handleModalClose }: IProps) {
-    const { cat } = useSelector((state: RootState) => state.cat)
-    const theme = useTheme()
-
+    const [isFormSubmitting, setIsFormSubmitting] = useState<boolean>(false)
 
     return (
         <Modal
@@ -47,14 +41,24 @@ export default function AppModal({ isModalOpen, handleModalClose }: IProps) {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
-            <Box sx={style}>
-                <Typography id="modal-modal-title" variant="h4" component="h2">
-                    Add a new Cat
-                </Typography>
+            {!isFormSubmitting ? (
+                <Box sx={style}>
+                    <Typography id="modal-modal-title" variant="h4" component="h2">
+                        Add a new Cat
+                    </Typography>
 
-                <NewForm handleModalClose={handleModalClose} />
+                    <NewForm
+                        isFormSubmitting={isFormSubmitting}
+                        setIsFormSubmitting={setIsFormSubmitting}
+                        handleModalClose={handleModalClose}
+                    />
+                </Box>
+            ) : (
+                <Box sx={style}>
+                    <CircularProgress />
+                </Box>
+            )}
 
-            </Box>
         </Modal>
     );
 }

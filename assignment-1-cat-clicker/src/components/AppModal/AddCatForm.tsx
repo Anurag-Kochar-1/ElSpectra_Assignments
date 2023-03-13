@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { TextField, Button, Box, Typography } from '@mui/material';
 import { addDoc, collection, updateDoc } from 'firebase/firestore';
 import { db, storage } from '../../config/firebaseConfig';
@@ -8,6 +8,12 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 
+interface IProps {
+    handleModalClose: () => void
+    isFormSubmitting: boolean
+    setIsFormSubmitting: React.Dispatch<React.SetStateAction<boolean>>
+}
+
 interface FormValues {
     name: string;
     age: string;
@@ -16,7 +22,7 @@ interface FormValues {
     image?: File;
 }
 
-const NewForm = ({ handleModalClose }: { handleModalClose: any }) => {
+const AddCatForm = ({ handleModalClose, isFormSubmitting, setIsFormSubmitting }: IProps) => {
     const dispatch = useDispatch()
     const { allCats } = useSelector((state: RootState) => state.cat)
     const [formValues, setFormValues] = useState<FormValues>({
@@ -27,7 +33,7 @@ const NewForm = ({ handleModalClose }: { handleModalClose: any }) => {
         image: undefined,
     });
     const [imagePreview, setImagePreview] = useState<any>(null)
-    const [isPosting, setIsPosting] = useState<boolean>(false)
+
     const imageInputRef = useRef<HTMLInputElement | null>(null)
 
     const createImagePreview = () => {
@@ -65,7 +71,7 @@ const NewForm = ({ handleModalClose }: { handleModalClose: any }) => {
 
     const uploadImage = () => {
         if (formValues?.image) {
-            setIsPosting(true)
+            setIsFormSubmitting(true)
             const imageRef = ref(storage, "catImages/" + Date.now() + "--" + formValues?.image?.name)
             const uploadImageMedia = uploadBytesResumable(imageRef, formValues?.image)
 
@@ -108,7 +114,7 @@ const NewForm = ({ handleModalClose }: { handleModalClose: any }) => {
         }]))
 
 
-        setIsPosting(false)
+        setIsFormSubmitting(false)
         handleModalClose()
     }
 
@@ -120,114 +126,105 @@ const NewForm = ({ handleModalClose }: { handleModalClose: any }) => {
 
 
     return (
-        <>
-            {!isPosting && (
-                <Box
-                    sx={{
-                        width: "100%",
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: "start",
-                        alignItems: "center",
-                        gap: 2,
-                        marginTop: 3,
-                    }}
-                    component="form"
-                    onSubmit={handleSubmit}
-                >
+        <Box
+            sx={{
+                width: "100%",
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: "start",
+                alignItems: "center",
+                gap: 2,
+                marginTop: 3,
+            }}
+            component="form"
+            onSubmit={handleSubmit}
+        >
 
 
 
-                    <Box
-                        sx={{
-                            width: 150,
-                            height: 150,
-                            backgroundColor: 'white',
-                            border: "2px solid black",
-                            borderRadius: 3,
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center",
-                            alignItems: "center"
-                        }}
-                        onClick={() => {
-                            if (imageInputRef.current !== null) {
-                                imageInputRef?.current.click()
-                                // alert(imageInputRef.current)
-                            }
-                        }}
-                    >
-                        <input title="input" type="file" accept="image/*" onChange={handleFileUpload} ref={imageInputRef} style={{ display: "none" }} />
+            <Box
+                sx={{
+                    width: 150,
+                    height: 150,
+                    backgroundColor: 'white',
+                    border: "2px solid black",
+                    borderRadius: 3,
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center"
+                }}
+                onClick={() => {
+                    if (imageInputRef.current !== null) {
+                        imageInputRef?.current.click()
+                        // alert(imageInputRef.current)
+                    }
+                }}
+            >
+                <input title="input" type="file" accept="image/*" onChange={handleFileUpload} ref={imageInputRef} style={{ display: "none" }} />
 
-                        {!imagePreview && (
-                            <Box>
-                                <Typography variant="overline" display="block" gutterBottom>
-                                    Upload Image
-                                </Typography>
-                            </Box>
-                        )}
-
-                        {imagePreview && (
-                            <img src={imagePreview} alt="preview" style={{ width: "100%", height: "100%" }} />
-                        )}
+                {!imagePreview && (
+                    <Box>
+                        <Typography variant="overline" display="block" gutterBottom>
+                            Upload Image
+                        </Typography>
                     </Box>
+                )}
 
-                    <TextField
-                        name="name"
-                        label="Name"
-                        variant="outlined"
-                        value={formValues.name}
-                        onChange={handleInputChange}
-                        fullWidth
-                        required
-                    />
-                    <TextField
-                        name="age"
-                        label="Age"
-                        variant="outlined"
-                        value={formValues.age}
-                        onChange={handleInputChange}
-                        fullWidth
-                        required
-                    />
-                    <TextField
-                        name="nicknames"
-                        label="Nicknames"
-                        variant="outlined"
-                        value={formValues.nicknames}
-                        onChange={handleInputChange}
-                        fullWidth
-                        required
-                    />
-                    <TextField
-                        name="clicks"
-                        label="Clicks"
-                        variant="outlined"
-                        type="number"
-                        value={formValues.clicks}
-                        fullWidth
-                        required
-                        onChange={(event) =>
-                            setFormValues((prevValues) => ({
-                                ...prevValues,
-                                clicks: parseInt(event.target.value),
-                            }))
-                        }
-                    />
+                {imagePreview && (
+                    <img src={imagePreview} alt="preview" style={{ width: "100%", height: "100%" }} />
+                )}
+            </Box>
+
+            <TextField
+                name="name"
+                label="Name"
+                variant="outlined"
+                value={formValues.name}
+                onChange={handleInputChange}
+                fullWidth
+                required
+            />
+            <TextField
+                name="age"
+                label="Age"
+                variant="outlined"
+                value={formValues.age}
+                onChange={handleInputChange}
+                fullWidth
+                required
+            />
+            <TextField
+                name="nicknames"
+                label="Nicknames"
+                variant="outlined"
+                value={formValues.nicknames}
+                onChange={handleInputChange}
+                fullWidth
+                required
+            />
+            <TextField
+                name="clicks"
+                label="Clicks"
+                variant="outlined"
+                type="number"
+                value={formValues.clicks}
+                fullWidth
+                required
+                onChange={(event) =>
+                    setFormValues((prevValues) => ({
+                        ...prevValues,
+                        clicks: parseInt(event.target.value),
+                    }))
+                }
+            />
 
 
-                    <Button variant="contained" type="submit">
-                        Submit
-                    </Button>
-                </Box>
-            )}
-            {isPosting && (
-                <Typography variant='h1'>
-                    Posting
-                </Typography>
-            )}
-        </>
+            <Button variant="contained" type="submit">
+                Submit
+            </Button>
+        </Box>
     );
 };
 
-export default NewForm;
+export default AddCatForm;
