@@ -12,6 +12,7 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from "@mui/icons-material/Close"
 import useCopyToClipboard from "../../hooks/useCopyToClipboard";
+import Toast from "../Toast/Toast";
 
 interface IProps {
     cat: ICat
@@ -23,30 +24,16 @@ export default function AnimalCard({ cat, page }: IProps) {
     const [value, copy] = useCopyToClipboard()
 
 
-    const handleClick = () => {
+    const handleToastClick = () => {
         setIsSnackbarOpen(true);
     };
 
-    const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
+    const handleToastClose = (event: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === 'clickaway') {
             return;
         }
         setIsSnackbarOpen(false);
     };
-
-
-    const action = (
-        <React.Fragment>
-            <IconButton
-                size="small"
-                aria-label="close"
-                color="inherit"
-                onClick={handleClose}
-            >
-                <CloseIcon fontSize="small" />
-            </IconButton>
-        </React.Fragment>
-    );
 
     return (
         <Card
@@ -109,19 +96,20 @@ export default function AnimalCard({ cat, page }: IProps) {
                             color="primary"
                             onClick={() => {
                                 copy(window.location.href)
-                                handleClick()
+                                handleToastClick()
                             }}
                         >
                             Share
                         </Button>
                     </CardActions>
 
-                    <Snackbar
-                        open={isSnackbarOpen}
-                        autoHideDuration={4000}
-                        onClose={handleClose}
-                        message="Link copied to clipboard"
-                        action={action}
+
+                    <Toast
+                        isSnackbarOpen={isSnackbarOpen}
+                        handleToastClick={handleToastClick}
+                        handleToastClose={handleToastClose}
+                        message={"Link copied to clipboard"}
+                        autoHideDuration={3000}
                     />
                 </>
             )}
