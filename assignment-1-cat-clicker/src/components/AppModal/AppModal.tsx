@@ -6,13 +6,16 @@ import Modal from '@mui/material/Modal';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import AppForm from '../AppForm/AppForm';
+import NewForm from './AddCatForm';
+import { useTheme } from '@emotion/react';
+
 
 const style = {
     position: 'absolute' as 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 600,
+    width: { xs: "95%", sm: "90%", md: 600 },
     height: 600,
     bgcolor: 'background.paper',
     borderRadius: 2,
@@ -23,7 +26,9 @@ const style = {
     alignItems: "center",
     justifyContent: "center",
 
+
 };
+
 
 interface IProps {
     isModalOpen: boolean
@@ -32,6 +37,7 @@ interface IProps {
 
 export default function AppModal({ isModalOpen, handleModalClose }: IProps) {
     const { cat } = useSelector((state: RootState) => state.cat)
+    const theme = useTheme()
 
 
     return (
@@ -46,7 +52,7 @@ export default function AppModal({ isModalOpen, handleModalClose }: IProps) {
                     Add a new Cat
                 </Typography>
 
-
+                <NewForm />
 
             </Box>
         </Modal>
