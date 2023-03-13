@@ -44,7 +44,7 @@ const CatPage = () => {
                 spacing={2}
             >
 
-                <AnimalCard cat={cat} />
+                <AnimalCard cat={cat} page={"CATPAGE"} />
                 <AppModal isModalOpen={isModalOpen} handleModalClose={handleModalClose} />
 
 

@@ -26,6 +26,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                     justifyContent="center"
                     alignItems="center"
                     spacing={2}
+                    marginTop={10}
                 >
                     <Sidebar isHamburgerOpen={isHamburgerOpen} handleHamburger={handleHamburger} />
                     {children}

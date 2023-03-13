@@ -5,7 +5,7 @@ import MuLink from "@mui/material/Link"
 
 const Navbar = ({ handleHamburger }: { handleHamburger: any }) => {
   return (
-    <AppBar position="static" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+    <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
       <Toolbar>
         <IconButton
           color="inherit"
