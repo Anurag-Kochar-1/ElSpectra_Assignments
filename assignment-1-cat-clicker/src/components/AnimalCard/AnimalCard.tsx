@@ -1,3 +1,4 @@
+import React, { useState } from "react"
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
@@ -7,6 +8,10 @@ import { ICat } from '../../interfaces/ICatInterface';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { Link as RouterLink } from "react-router-dom"
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from "@mui/icons-material/Close"
+import useCopyToClipboard from "../../hooks/useCopyToClipboard";
 
 interface IProps {
     cat: ICat
@@ -14,10 +19,38 @@ interface IProps {
 }
 
 export default function AnimalCard({ cat, page }: IProps) {
+    const [isSnackbarOpen, setIsSnackbarOpen] = useState<boolean>(false);
+    const [value, copy] = useCopyToClipboard()
+
+
+    const handleClick = () => {
+        setIsSnackbarOpen(true);
+    };
+
+    const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setIsSnackbarOpen(false);
+    };
+
+
+    const action = (
+        <React.Fragment>
+            <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={handleClose}
+            >
+                <CloseIcon fontSize="small" />
+            </IconButton>
+        </React.Fragment>
+    );
 
     return (
         <Card
-            sx={{  width: 400, margin: 5, textDecoration: "none", padding: 2 }}
+            sx={{ width: 400, margin: 5, textDecoration: "none", padding: 2 }}
             component={RouterLink}
             to={`/cats/${cat?.id}`}
         >
@@ -74,10 +107,22 @@ export default function AnimalCard({ cat, page }: IProps) {
                             size="small"
                             variant='outlined'
                             color="primary"
+                            onClick={() => {
+                                copy(window.location.href)
+                                handleClick()
+                            }}
                         >
                             Share
                         </Button>
                     </CardActions>
+
+                    <Snackbar
+                        open={isSnackbarOpen}
+                        autoHideDuration={4000}
+                        onClose={handleClose}
+                        message="Link copied to clipboard"
+                        action={action}
+                    />
                 </>
             )}
 

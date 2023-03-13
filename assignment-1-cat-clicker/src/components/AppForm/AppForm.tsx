@@ -1,12 +1,11 @@
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { setCat } from "../../redux/slices/catSlice";
 import {
   Box,
   Button,
-  Stack,
   TextField,
-  ButtonGroup
-
+  ButtonGroup,
+  IconButton
 } from '@mui/material';
 import { ICat } from '../../interfaces/ICatInterface';
 import { RootState } from "../../redux/store";
@@ -44,6 +43,7 @@ const AppForm = ({ cat, handleModalOpen }: { cat: ICat, handleModalOpen: () => v
   }
 
 
+  
 
   return (
     <Box
@@ -90,6 +90,8 @@ const AppForm = ({ cat, handleModalOpen }: { cat: ICat, handleModalOpen: () => v
             }))
           }}>Save</Button>
         </ButtonGroup>
+
+        
 
       </Box>
     </Box>

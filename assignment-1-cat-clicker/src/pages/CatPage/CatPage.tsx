@@ -9,13 +9,14 @@ import { Box, Stack, useMediaQuery, useTheme } from '@mui/material';
 import AnimalCard from "../../components/AnimalCard/AnimalCard"
 import AppForm from '../../components/AppForm/AppForm';
 import AppModal from '../../components/AppModal/AppModal';
+import Gallery from '../../components/Gallery/Gallery';
 
 const CatPage = () => {
     const theme = useTheme();
     const isTablet = useMediaQuery(theme?.breakpoints.between('xs', 'md'));
     const { id }: any = useParams()
     const dispatch = useDispatch()
-    const { cat, status, error } = useSelector((state: RootState) => state.cat);
+    const { cat, status, error, allCats } = useSelector((state: RootState) => state.cat);
 
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const handleModalOpen = () => setIsModalOpen(true);
@@ -42,6 +43,7 @@ const CatPage = () => {
                 justifyContent="center"
                 alignItems="center"
                 spacing={2}
+                paddingBottom={20}
             >
 
                 <AnimalCard cat={cat} page={"CATPAGE"} />
@@ -50,6 +52,14 @@ const CatPage = () => {
 
                 {cat?.id && status === 'SUCCESS' && <AppForm cat={cat} handleModalOpen={handleModalOpen} />}
             </Stack>
+
+            <Gallery
+                allCats={allCats}
+                status={status}
+                error={error}
+                page={"HOMEPAGE"}
+                title={"Cat Images Gallery"}
+            />
         </Box>
     )
 }
