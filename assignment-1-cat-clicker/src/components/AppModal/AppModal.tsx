@@ -52,7 +52,7 @@ export default function AppModal({ isModalOpen, handleModalClose }: IProps) {
                     Add a new Cat
                 </Typography>
 
-                <NewForm />
+                <NewForm handleModalClose={handleModalClose} />
 
             </Box>
         </Modal>

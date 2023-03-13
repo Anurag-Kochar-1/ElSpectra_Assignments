@@ -32,6 +32,7 @@ export default function AnimalCard({ cat }: { cat: ICat }) {
                 height="194"
                 image={cat?.catImageURL}
                 alt={cat?.catName as string}
+                sx={{ objectFit: 'contain' }}
             />
             <CardContent>
 
