@@ -16,7 +16,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../config/firebaseConfig";
 
 
-const AppForm = ({ cat }: { cat: ICat }) => {
+const AppForm = ({ cat, handleModalOpen }: { cat: ICat, handleModalOpen: () => void }) => {
   const dispatch = useDispatch()
   const [catName, setCatName] = useState<string | number>(cat?.catName)
   const [catClickTimes, setCatClickTimes] = useState<number>(cat?.clickTimes)
@@ -51,9 +51,10 @@ const AppForm = ({ cat }: { cat: ICat }) => {
       flexDirection="column"
       boxShadow={4}
       width={400}
+      height={500}
       padding={2}
     >
-      <Button size="medium" variant='outlined' color="primary">Open new form</Button>
+      <Button size="medium" variant='outlined' color="primary" onClick={handleModalOpen}>Open new form</Button>
 
       <Box
         component="form"

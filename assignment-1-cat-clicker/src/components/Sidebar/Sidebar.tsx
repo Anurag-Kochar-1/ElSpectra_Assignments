@@ -57,7 +57,7 @@ const Sidebar = ({ isHamburgerOpen, handleHamburger }: { isHamburgerOpen: boolea
     const { id }: any = useParams()
 
     const dispatch = useDispatch()
-    const { allCats, status, error, cat } = useSelector((state: RootState) => state.cat);
+    const { allCats, status, error } = useSelector((state: RootState) => state.cat);
 
     useEffect(() => {
         if (status === 'IDLE') {

@@ -17,7 +17,7 @@ import Button from '@mui/material/Button';
 export default function AnimalCard({ cat }: { cat: ICat }) {
 
     return (
-        <Card sx={{ width: 400, margin: 5 }}>
+        <Card sx={{ width: 400, height: 500, margin: 5 }}>
             <Stack sx={{ padding: 2 }}>
                 <Typography variant="h6" gutterBottom>
                     {cat?.catName}

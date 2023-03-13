@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom"
 import Typography from "@mui/material/Typography/Typography"
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,6 +8,7 @@ import { Box, Stack, useMediaQuery, useTheme } from '@mui/material';
 
 import AnimalCard from "../../components/AnimalCard/AnimalCard"
 import AppForm from '../../components/AppForm/AppForm';
+import AppModal from '../../components/AppModal/AppModal';
 
 const CatPage = () => {
     const theme = useTheme();
@@ -15,6 +16,10 @@ const CatPage = () => {
     const { id }: any = useParams()
     const dispatch = useDispatch()
     const { cat, status, error } = useSelector((state: RootState) => state.cat);
+
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const handleModalOpen = () => setIsModalOpen(true);
+    const handleModalClose = () => setIsModalOpen(false);
 
     useEffect(() => {
         dispatch(fetchCat(id) as any);
@@ -40,8 +45,10 @@ const CatPage = () => {
             >
 
                 <AnimalCard cat={cat} />
+                <AppModal isModalOpen={isModalOpen} handleModalClose={handleModalClose} />
 
-                {cat?.id && status === 'SUCCESS' && <AppForm cat={cat} />}
+
+                {cat?.id && status === 'SUCCESS' && <AppForm cat={cat} handleModalOpen={handleModalOpen} />}
             </Stack>
         </Box>
     )
