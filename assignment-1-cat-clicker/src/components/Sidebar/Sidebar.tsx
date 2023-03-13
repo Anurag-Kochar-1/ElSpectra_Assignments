@@ -50,7 +50,7 @@ const LeftSidebar = styled(Drawer)(({ theme }) => ({
 
 
 const Sidebar = ({ isHamburgerOpen, handleHamburger }: { isHamburgerOpen: boolean, handleHamburger: any }) => {
-    
+
 
     const theme = useTheme();
     const isTablet = useMediaQuery(theme.breakpoints.between('xs', 'md'));

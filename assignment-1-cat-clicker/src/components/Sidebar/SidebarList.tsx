@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import {
     List,
 } from '@mui/material';
@@ -10,7 +9,7 @@ const SidebarList = ({ allCats }: { allCats: ICat[] }) => {
     return (
         <List>
             {allCats?.map((cat) => (
-                <ListCard cat={cat} />
+                <ListCard key={cat?.id} cat={cat} />
             ))}
         </List>
     )

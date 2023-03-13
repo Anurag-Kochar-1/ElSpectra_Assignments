@@ -40,7 +40,8 @@ const CatPage = () => {
             >
 
                 <AnimalCard cat={cat} />
-                <AppForm cat={cat}/>
+
+                {cat?.id && status === 'SUCCESS' && <AppForm cat={cat} />}
             </Stack>
         </Box>
     )
