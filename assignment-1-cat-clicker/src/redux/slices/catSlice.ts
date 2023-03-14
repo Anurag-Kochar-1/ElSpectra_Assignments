@@ -44,9 +44,24 @@ const catSlice = createSlice({
         },
 
         increaseCatClicks: (state, action) => {
-            state.allCats.map((cat) => {
+            // state.allCats.map((cat) => {
+            //     if (cat.id === action.payload) {
+            //         return {
+            //             ...cat,
+            //             clickTimes: cat?.clickTimes + 1
+            //         }
+            //     } else {
+            //         return cat
+            //     }
+            // })
+
+            // state.allCats = state.allCats.filter((cat) => cat?.id !== action.payload)
+            state.allCats = state.allCats.map((cat) => {
                 if (cat.id === action.payload) {
-                    return cat.clickTimes++
+                    return {
+                        ...cat,
+                        clickTimes: cat?.clickTimes + 1
+                    }
                 } else {
                     return cat
                 }

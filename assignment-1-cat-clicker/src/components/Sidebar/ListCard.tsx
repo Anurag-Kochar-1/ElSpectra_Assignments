@@ -27,7 +27,9 @@ const ListCard = ({ cat }: { cat: ICat }) => {
         <MuLink
             onClick={() => {
                 increaseCatClicks(cat?.id)
-                // dispatch(increaseCatClicksRedux(cat?.id))
+                dispatch(increaseCatClicksRedux(cat?.id))
+                // setCatClickTimesState(catClickTimesState + 1)
+
             }}
             component={RouterLink}
             to={`/cats/${cat?.id}`}

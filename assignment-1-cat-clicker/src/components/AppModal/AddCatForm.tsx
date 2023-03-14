@@ -24,7 +24,7 @@ interface FormValues {
 
 const AddCatForm = ({ handleModalClose, isFormSubmitting, setIsFormSubmitting }: IProps) => {
     const dispatch = useDispatch()
-    const { allCats } = useSelector((state: RootState) => state.cat)
+    const { allCats, cat } = useSelector((state: RootState) => state.cat)
     const [formValues, setFormValues] = useState<FormValues>({
         name: '',
         age: '',
@@ -133,6 +133,17 @@ const AddCatForm = ({ handleModalClose, isFormSubmitting, setIsFormSubmitting }:
     useEffect(() => {
         createImagePreview()
     }, [formValues.image])
+
+
+    useEffect(() => {
+        setFormValues({
+            name: cat?.catName,
+            age: cat?.catAge,
+            nicknames: cat?.catNickNames.toString(),
+            clicks: cat?.clickTimes,
+            image: undefined,
+        })
+    }, [cat])
 
 
     return (
