@@ -37,6 +37,7 @@ const AppForm = ({ cat, handleModalOpen }: { cat: ICat, handleModalOpen: () => v
     })
   }
 
+
   const resetForm = () => {
     setCatName(cat?.catName)
     setCatClickTimes(cat?.clickTimes)
@@ -56,6 +57,9 @@ const AppForm = ({ cat, handleModalOpen }: { cat: ICat, handleModalOpen: () => v
     setIsSnackbarOpen(false);
   };
 
+  useEffect(() => {
+    setCatClickTimes(cat?.clickTimes)
+  }, [cat])
 
 
 

@@ -43,8 +43,14 @@ const catSlice = createSlice({
             state.cat = action.payload
         },
 
-        increaseCatClicks: (state) => {
-            state.cat.clickTimes++
+        increaseCatClicks: (state, action) => {
+            state.allCats.map((cat) => {
+                if (cat.id === action.payload) {
+                    return cat.clickTimes++
+                } else {
+                    return cat
+                }
+            })
         }
     },
     extraReducers: builder => {
