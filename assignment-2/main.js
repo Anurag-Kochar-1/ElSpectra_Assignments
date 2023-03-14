@@ -36,6 +36,17 @@ function getBottom3(year) {
     if (year === 2019) return sortedCapabilities2019.splice(-3)
     if (year === 2024) return sortedCapabilities2024.splice(-3)
 }
-// console.log(getBottom3(2024))
+// console.log(getTop3(2024))
 
 
+const sortedGrowth = skillsData.skills_capabilities.sort((a, b) => {
+    const growthA = parseInt(a.score_2024) - parseInt(a.score_2019);
+    const growthB = parseInt(b.score_2024) - parseInt(b.score_2019);
+    return growthB - growthA;
+});
+
+const top3Accelerating = sortedGrowth.map(c => c).slice(0, 3);
+// console.log(top3Accelerating)
+
+const top3Decelerating = sortedGrowth.map(c => c).slice(-3);
+// console.log(top3Decelerating)
