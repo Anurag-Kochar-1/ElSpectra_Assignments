@@ -35,6 +35,8 @@ const CatPage = () => {
         )
     }
 
+    
+
     return (
         <Box
             sx={{ width: "100%", }}
@@ -47,8 +49,8 @@ const CatPage = () => {
                 paddingBottom={20}
             >
 
-                <AnimalCard cat={cat} page={"CATPAGE"} />
-                <AppModal isModalOpen={isModalOpen} handleModalClose={handleModalClose} />
+                <AnimalCard cat={cat} page={"CATPAGE"}  />
+                <AppModal isModalOpen={isModalOpen} handleModalClose={handleModalClose}/>
 
 
                 {cat?.id && status === 'SUCCESS' && <AppForm cat={cat} handleModalOpen={handleModalOpen} />}

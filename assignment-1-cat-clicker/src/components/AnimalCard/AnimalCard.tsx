@@ -39,6 +39,16 @@ export default function AnimalCard({ cat, page }: IProps) {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 
+    const getCatAgeName = () => {
+        if (cat?.clickTimes <= 5) return `Infant`
+        else if (cat?.clickTimes > 5 && cat?.clickTimes <= 12) return `Child`
+        else if (cat?.clickTimes >= 13 && cat?.clickTimes <= 25) return `Young`
+        else if (cat?.clickTimes >= 26 && cat?.clickTimes <= 40) return `Middle-Age`
+        else if (cat?.clickTimes >= 41 && cat?.clickTimes <= 60) return `Old`
+        else if (cat?.clickTimes >= 61) return `Very Old`
+        return `Old`
+    }
+
     const handleToastClick = () => {
         setIsSnackbarOpen(true);
     };
@@ -63,14 +73,7 @@ export default function AnimalCard({ cat, page }: IProps) {
         dispatch(setAllCats(allCats.filter((cat_2) => cat_2?.id !== cat?.id)))
     }
 
-    const getCatAgeName = () => {
-        if (cat?.clickTimes <= 5) return `Infant`
-        else if (cat?.clickTimes > 5 && cat?.clickTimes <= 12) return `Child`
-        else if (cat?.clickTimes >= 13 && cat?.clickTimes <= 25) return `Young`
-        else if (cat?.clickTimes >= 26 && cat?.clickTimes <= 40) return `Middle-Age`
-        else if (cat?.clickTimes >= 41 && cat?.clickTimes <= 60) return `Old`
-        else if (cat?.clickTimes >= 61) return `Very Old`
-    }
+
 
     return (
         <Card

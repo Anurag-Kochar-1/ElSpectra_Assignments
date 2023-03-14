@@ -7,6 +7,8 @@ import { setAllCats } from '../../redux/slices/catSlice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import Toast from '../Toast/Toast';
+import ImageIcon from '@mui/icons-material/Image';
 
 interface IProps {
     handleModalClose: () => void
@@ -33,7 +35,7 @@ const AddCatForm = ({ handleModalClose, isFormSubmitting, setIsFormSubmitting }:
         image: undefined,
     });
     const [imagePreview, setImagePreview] = useState<any>(null)
-
+    const [isSnackbarOpen, setIsSnackbarOpen] = useState<boolean>(false);
     const imageInputRef = useRef<HTMLInputElement | null>(null)
 
     const createImagePreview = () => {
@@ -42,7 +44,15 @@ const AddCatForm = ({ handleModalClose, isFormSubmitting, setIsFormSubmitting }:
         }
     }
 
-
+    const getCatAgeName = () => {
+        if (cat?.clickTimes <= 5) return `Infant`
+        else if (formValues?.clicks > 5 && formValues?.clicks <= 12) return `Child`
+        else if (formValues?.clicks >= 13 && formValues?.clicks <= 25) return `Young`
+        else if (formValues?.clicks >= 26 && formValues?.clicks <= 40) return `Middle-Age`
+        else if (formValues?.clicks >= 41 && formValues?.clicks <= 60) return `Old`
+        else if (formValues?.clicks >= 61) return `Very Old`
+        return `Old`
+    }
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -89,7 +99,7 @@ const AddCatForm = ({ handleModalClose, isFormSubmitting, setIsFormSubmitting }:
         }
     }
 
-    const addCat = async (downloadURL: string) => {
+    const addCat = async (downloadURL: string = `https://th.bing.com/th/id/OIP.9ZA116H2sgefzH9D2BQJBwHaHa?pid=ImgDet&rs=1`) => {
         const currentDate = new Date();
 
         // Format date as "day month name year"
@@ -99,10 +109,11 @@ const AddCatForm = ({ handleModalClose, isFormSubmitting, setIsFormSubmitting }:
         const formattedDate = `${day} ${month} ${year}`;
 
         const catsCollectionRef = collection(db, 'cats')
+        const ageName = getCatAgeName()
         const res = await addDoc(catsCollectionRef, {
             id: "",
             catName: formValues.name,
-            catAge: formValues.age,
+            catAge: ageName,
             catImageURL: downloadURL,
             catNickNames: [formValues.nicknames],
             clickTimes: formValues.clicks,
@@ -116,7 +127,7 @@ const AddCatForm = ({ handleModalClose, isFormSubmitting, setIsFormSubmitting }:
         dispatch(setAllCats([...allCats, {
             id: res.id,
             catName: formValues.name,
-            catAge: formValues.age,
+            catAge: ageName,
             catImageURL: downloadURL,
             catNickNames: [formValues.nicknames],
             clickTimes: formValues.clicks,
@@ -124,11 +135,22 @@ const AddCatForm = ({ handleModalClose, isFormSubmitting, setIsFormSubmitting }:
         }]))
 
 
-        setIsFormSubmitting(false)
-        handleModalClose()
+        setIsFormSubmitting(false);
+        handleModalClose();
+        handleToastClick();
+        window.location.href = window?.location?.origin
     }
 
+    const handleToastClick = () => {
+        setIsSnackbarOpen(true);
+    };
 
+    const handleToastClose = (event: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setIsSnackbarOpen(false);
+    };
 
     useEffect(() => {
         createImagePreview()
@@ -138,12 +160,15 @@ const AddCatForm = ({ handleModalClose, isFormSubmitting, setIsFormSubmitting }:
     useEffect(() => {
         setFormValues({
             name: cat?.catName,
-            age: cat?.catAge,
+            age: '',
             nicknames: cat?.catNickNames.toString(),
             clicks: cat?.clickTimes,
             image: undefined,
         })
     }, [cat])
+
+
+
 
 
     return (
@@ -168,8 +193,8 @@ const AddCatForm = ({ handleModalClose, isFormSubmitting, setIsFormSubmitting }:
                     width: 150,
                     height: 150,
                     backgroundColor: 'white',
-                    border: "2px solid black",
-                    borderRadius: 3,
+                    border: "2px solid gray",
+                    borderRadius: 2,
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "center",
@@ -185,9 +210,10 @@ const AddCatForm = ({ handleModalClose, isFormSubmitting, setIsFormSubmitting }:
                 <input title="input" type="file" accept="image/*" onChange={handleFileUpload} ref={imageInputRef} style={{ display: "none" }} />
 
                 {!imagePreview && (
-                    <Box>
+                    <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 1 }}>
+                        <ImageIcon />
                         <Typography variant="overline" display="block" gutterBottom>
-                            Upload Image
+                            Upload an Image
                         </Typography>
                     </Box>
                 )}
@@ -242,8 +268,16 @@ const AddCatForm = ({ handleModalClose, isFormSubmitting, setIsFormSubmitting }:
 
 
             <Button variant="contained" type="submit">
-                Submit
+                Create
             </Button>
+
+            <Toast
+                isSnackbarOpen={isSnackbarOpen}
+                handleToastClick={handleToastClick}
+                handleToastClose={handleToastClose}
+                message={"New Cat Added"}
+                autoHideDuration={3000}
+            />
         </Box>
     );
 };

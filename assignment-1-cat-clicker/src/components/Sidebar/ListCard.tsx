@@ -17,6 +17,7 @@ import { RootState } from '../../redux/store'
 
 const ListCard = ({ cat }: { cat: ICat }) => {
     const dispatch = useDispatch()
+    const { id }: any = useParams()
     const [selectedListCard, setSelectedListCard] = useState<string | null>(null);
     const [catClickTimesState, setCatClickTimesState] = useState<number>(cat?.clickTimes)
     const { allCats, status, error } = useSelector((state: RootState) => state.cat);
@@ -26,20 +27,31 @@ const ListCard = ({ cat }: { cat: ICat }) => {
     return (
         <MuLink
             onClick={() => {
-                increaseCatClicks(cat?.id)
-                dispatch(increaseCatClicksRedux(cat?.id))
-                // setCatClickTimesState(catClickTimesState + 1)
+                // increaseCatClicks(cat?.id)
+                // dispatch(increaseCatClicksRedux(cat?.id))
+                console.log(window.location)
 
             }}
             component={RouterLink}
             to={`/cats/${cat?.id}`}
-            sx={{ color: "black", textDecoration: "none", }}
+            sx={{ color: "black", textDecoration: "none" }}
         >
-            <ListItem key={cat?.catName} disablePadding>
+            <ListItem
+                key={cat?.catName}
+                disablePadding
+            >
                 <ListItemButton
+                    sx={{
+                        backgroundColor: window?.location?.pathname === `/cats/${cat?.id}` ? "primary.dark" : "inherit",
+                        color: window?.location?.pathname === `/cats/${cat?.id}` ? "white" : "inherit",
+                    }}
                 >
                     <ListItemText primary={cat?.catName} />
-                    <Chip label={cat?.clickTimes} />
+                    <Chip label={cat?.clickTimes}
+                        sx={{
+                            backgroundColor: window?.location?.pathname === `/cats/${cat?.id}` ? "white" : "inherit",
+                            color: window?.location?.pathname === `/cats/${cat?.id}` ? "primary.dark" : "inherit",
+                        }} />
                 </ListItemButton>
             </ListItem>
         </MuLink >
