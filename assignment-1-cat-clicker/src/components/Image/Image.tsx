@@ -18,6 +18,7 @@ const Image = ({ src, alt, width, height }: IProps) => {
                 alt={alt}
                 width={width}
                 height={height}
+                style={{ objectFit: "contain" }}
             />
         </Box>
     );

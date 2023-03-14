@@ -24,6 +24,7 @@ import { useDispatch } from "react-redux";
 import { RootState } from "../../redux/store";
 import { useSelector } from "react-redux";
 import Image from "../Image/Image";
+import Box from "@mui/material/Box/Box"
 
 interface IProps {
     cat: ICat
@@ -78,7 +79,7 @@ export default function AnimalCard({ cat, page }: IProps) {
 
     return (
         <Card
-            sx={{ width: 400, margin: 5, textDecoration: "none", padding: 2 }}
+            sx={{ width: 400, margin: 5, textDecoration: "none", padding: 2, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "start" }}
             component={RouterLink}
             to={`/cats/${cat?.id}`}
         >
@@ -134,13 +135,15 @@ export default function AnimalCard({ cat, page }: IProps) {
                 draggable={false}
             /> */}
 
-            <Image
-                src={cat?.catImageURL}
-                alt={cat?.catName?.toString()}
-                width={"500"}
-                height={"300"}
-            />
+            <Box sx={{ width: "100%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+                <Image
+                    src={cat?.catImageURL}
+                    alt={cat?.catName?.toString()}
+                    width={"500"}
+                    height={"300"}
+                />
 
+            </Box>
             {page === 'CATPAGE' && (
                 <>
                     <CardContent>
