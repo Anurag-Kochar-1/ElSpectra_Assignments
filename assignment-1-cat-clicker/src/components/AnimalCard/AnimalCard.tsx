@@ -126,6 +126,7 @@ export default function AnimalCard({ cat, page }: IProps) {
             <CardMedia
                 component="img"
                 height="194"
+                width="500"
                 image={cat?.catImageURL}
                 alt={cat?.catName as string}
                 sx={{ objectFit: 'contain', borderRadius: 2, paddingY: 2 }}
