@@ -85,6 +85,7 @@ export default function AnimalCard({ cat, page }: IProps) {
         >
 
             <CardHeader
+                sx={{ width: "100%", display: "flex", justifyContent: "betwen", alignItems: "center   " }}
                 avatar={
                     <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe" onClick={() => console.log(typeof cat.catName)}>
                         {catNameFirstLetter}
