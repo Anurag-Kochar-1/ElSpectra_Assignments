@@ -63,6 +63,15 @@ export default function AnimalCard({ cat, page }: IProps) {
         dispatch(setAllCats(allCats.filter((cat_2) => cat_2?.id !== cat?.id)))
     }
 
+    const getCatAgeName = () => {
+        if (cat?.clickTimes <= 5) return `Infant`
+        else if (cat?.clickTimes > 5 && cat?.clickTimes <= 12) return `Child`
+        else if (cat?.clickTimes >= 13 && cat?.clickTimes <= 25) return `Young`
+        else if (cat?.clickTimes >= 26 && cat?.clickTimes <= 40) return `Middle-Age`
+        else if (cat?.clickTimes >= 41 && cat?.clickTimes <= 60) return `Old`
+        else if (cat?.clickTimes >= 61) return `Very Old`
+    }
+
     return (
         <Card
             sx={{ width: 400, margin: 5, textDecoration: "none", padding: 2 }}
@@ -152,7 +161,7 @@ export default function AnimalCard({ cat, page }: IProps) {
                         </Stack>
 
                         <Typography variant="body1" gutterBottom>
-                            Age : {cat?.catAge}
+                            Age : {getCatAgeName()}
                         </Typography>
                     </CardContent>
 

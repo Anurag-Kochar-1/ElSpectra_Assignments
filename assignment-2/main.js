@@ -39,5 +39,3 @@ function getBottom3(year) {
 // console.log(getBottom3(2024))
 
 
-
-
