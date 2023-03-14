@@ -1,7 +1,7 @@
 # Cat Clicker - Assignment 1 
 
 ### LIVE : https://el-spectra-assignment-1-cat-clicker.vercel.app/
-### Demo Video :   
+### Demo Video : https://youtu.be/L2pNeEVKXhE
 
 ### Tech Stack
 1. React JS 
