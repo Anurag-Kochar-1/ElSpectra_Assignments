@@ -12,9 +12,13 @@
 
 
 # Components
+- [Animal Card](#AnimalCard)
+- [Gallery](#Gallery)
+- [Toast](#Toast)
+- [App Modal](#AppModal)
 
 
-## Animal Card
+## AnimalCard
 
 | Prop  | Description                                | Type                                |
 | ----- | ------------------------------------------ | ----------------------------------- |
@@ -37,3 +41,10 @@
 | handleToastClose* | Function to set the state to false                              | (event: React.SyntheticEvent | Event, reason?: string) => void |
 | message*          | Message or label for the toast                                  | string or number             |
 | autoHideDuration* | For closing the toast after X milliseconds (by default 3500 ms) | number                       |
+
+
+## AppModal
+| Prop              | Description                           | Type        |
+| ----------------- | ------------------------------------- | ----------- |
+| isModalOpen*      | React State which is false by default | boolean     |
+| handleModalClose* | Function to set the state to false    | ()  => void |
