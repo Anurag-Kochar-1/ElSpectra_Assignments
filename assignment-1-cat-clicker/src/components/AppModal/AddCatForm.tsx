@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { TextField, Button, Box, Typography } from '@mui/material';
-import { addDoc, collection, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { db, storage } from '../../config/firebaseConfig';
 import { useDispatch } from 'react-redux';
 import { setAllCats } from '../../redux/slices/catSlice';
@@ -90,6 +90,14 @@ const AddCatForm = ({ handleModalClose, isFormSubmitting, setIsFormSubmitting }:
     }
 
     const addCat = async (downloadURL: string) => {
+        const currentDate = new Date();
+
+        // Format date as "day month name year"
+        const day = currentDate.getDate();
+        const month = currentDate.toLocaleString('default', { month: 'long' });
+        const year = currentDate.getFullYear();
+        const formattedDate = `${day} ${month} ${year}`;
+
         const catsCollectionRef = collection(db, 'cats')
         const res = await addDoc(catsCollectionRef, {
             id: "",
@@ -97,7 +105,8 @@ const AddCatForm = ({ handleModalClose, isFormSubmitting, setIsFormSubmitting }:
             catAge: formValues.age,
             catImageURL: downloadURL,
             catNickNames: [formValues.nicknames],
-            clickTimes: formValues.clicks
+            clickTimes: formValues.clicks,
+            createdAt: ""
         })
 
         await updateDoc(res, {
@@ -110,7 +119,8 @@ const AddCatForm = ({ handleModalClose, isFormSubmitting, setIsFormSubmitting }:
             catAge: formValues.age,
             catImageURL: downloadURL,
             catNickNames: [formValues.nicknames],
-            clickTimes: formValues.clicks
+            clickTimes: formValues.clicks,
+            createdAt: ""
         }]))
 
 

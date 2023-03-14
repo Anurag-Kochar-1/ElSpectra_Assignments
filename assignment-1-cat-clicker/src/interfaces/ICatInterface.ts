@@ -5,4 +5,5 @@ export interface ICat {
     catImageURL: string
     catNickNames: string[]
     catAge: string
+    createdAt: string
 }

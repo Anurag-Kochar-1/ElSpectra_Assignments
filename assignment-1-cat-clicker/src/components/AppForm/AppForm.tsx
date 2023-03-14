@@ -31,6 +31,7 @@ const AppForm = ({ cat, handleModalOpen }: { cat: ICat, handleModalOpen: () => v
       catName,
       catNickNames,
       clickTimes: catClickTimes,
+      createdAt: ""
     })
   }
 
@@ -43,7 +44,7 @@ const AppForm = ({ cat, handleModalOpen }: { cat: ICat, handleModalOpen: () => v
   }
 
 
-  
+
 
   return (
     <Box
@@ -91,7 +92,7 @@ const AppForm = ({ cat, handleModalOpen }: { cat: ICat, handleModalOpen: () => v
           }}>Save</Button>
         </ButtonGroup>
 
-        
+
 
       </Box>
     </Box>
