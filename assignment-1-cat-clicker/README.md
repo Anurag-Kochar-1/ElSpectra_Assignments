@@ -33,6 +33,16 @@
 | page*    | On which page you want to render this gallery | string : "HOMEPAGE" or "CATPAGE"       |
 | title*   | Title of the image gallery                    | string or number                       |
 
+## Image
+| Prop    | Description            | Type   |
+| ------- | ---------------------- | ------ |
+| src*    | Source of the image    | string |
+| alt*    | Alt text for the image | string |
+| width*  | Width of the image     | string |
+| height* | Height of the image    | string |
+
+
+
 ## Toast
 | Prop              | Description                                                     | Type                         |
 | ----------------- | --------------------------------------------------------------- | ---------------------------- |

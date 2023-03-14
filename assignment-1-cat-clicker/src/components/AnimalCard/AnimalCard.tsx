@@ -23,6 +23,7 @@ import { db } from "../../config/firebaseConfig";
 import { useDispatch } from "react-redux";
 import { RootState } from "../../redux/store";
 import { useSelector } from "react-redux";
+import Image from "../Image/Image";
 
 interface IProps {
     cat: ICat
@@ -123,7 +124,7 @@ export default function AnimalCard({ cat, page }: IProps) {
                 subheader={"14 March 2023"}
             />
 
-            <CardMedia
+            {/* <CardMedia
                 component="img"
                 height="194"
                 width="500"
@@ -131,6 +132,13 @@ export default function AnimalCard({ cat, page }: IProps) {
                 alt={cat?.catName as string}
                 sx={{ objectFit: 'contain', borderRadius: 2, paddingY: 2 }}
                 draggable={false}
+            /> */}
+
+            <Image
+                src={cat?.catImageURL}
+                alt={cat?.catName?.toString()}
+                width={"500"}
+                height={"300"}
             />
 
             {page === 'CATPAGE' && (
