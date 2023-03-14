@@ -13,10 +13,12 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../config/firebaseConfig";
+import Toast from "../Toast/Toast";
 
 
 const AppForm = ({ cat, handleModalOpen }: { cat: ICat, handleModalOpen: () => void }) => {
   const dispatch = useDispatch()
+  const [isSnackbarOpen, setIsSnackbarOpen] = useState<boolean>(false);
   const [catName, setCatName] = useState<string | number>(cat?.catName)
   const [catClickTimes, setCatClickTimes] = useState<number>(cat?.clickTimes)
   const [catImageURL, setCatImageURL] = useState<string>(cat?.catImageURL)
@@ -42,6 +44,17 @@ const AppForm = ({ cat, handleModalOpen }: { cat: ICat, handleModalOpen: () => v
     setCatNickNames(cat?.catNickNames)
     setCatAge(cat?.catAge)
   }
+
+  const handleToastClick = () => {
+    setIsSnackbarOpen(true);
+  };
+
+  const handleToastClose = (event: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setIsSnackbarOpen(false);
+  };
 
 
 
@@ -81,6 +94,7 @@ const AppForm = ({ cat, handleModalOpen }: { cat: ICat, handleModalOpen: () => v
 
           <Button color='success' variant='contained' onClick={() => {
             editCat()
+            handleToastClick()
             dispatch(setCat({
               catName: catName,
               clickTimes: catClickTimes,
@@ -90,6 +104,14 @@ const AppForm = ({ cat, handleModalOpen }: { cat: ICat, handleModalOpen: () => v
               id: cat?.id
             }))
           }}>Save</Button>
+
+          <Toast
+            isSnackbarOpen={isSnackbarOpen}
+            handleToastClick={handleToastClick}
+            handleToastClose={handleToastClose}
+            message={"Changes Saved"}
+            autoHideDuration={3000}
+          />
         </ButtonGroup>
 
 

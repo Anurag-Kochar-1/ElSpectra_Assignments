@@ -10,6 +10,7 @@ import AnimalCard from "../../components/AnimalCard/AnimalCard"
 import AppForm from '../../components/AppForm/AppForm';
 import AppModal from '../../components/AppModal/AppModal';
 import Gallery from '../../components/Gallery/Gallery';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const CatPage = () => {
     const theme = useTheme();
@@ -26,12 +27,12 @@ const CatPage = () => {
         dispatch(fetchCat(id) as any);
     }, [id]);
 
-    if (status === 'LOADING') {
-        return <div>Loading...</div>;
-    }
-
-    if (status === 'FAILED') {
-        return <div>{JSON.stringify(error)}</div>;
+    if (status === 'LOADING' || status === 'FAILED') {
+        return (
+            <Box sx={{ width: "100%", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <CircularProgress />
+            </Box>
+        )
     }
 
     return (

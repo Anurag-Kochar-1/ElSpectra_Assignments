@@ -13,7 +13,6 @@ interface IProps {
 }
 
 const Gallery = ({ allCats, status, error, page, title }: IProps) => {
-    // const { allCats, status, error } = useSelector((state: RootState) => state.cat);
 
     return (
         <Stack
