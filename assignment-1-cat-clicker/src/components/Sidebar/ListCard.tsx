@@ -27,14 +27,14 @@ const ListCard = ({ cat }: { cat: ICat }) => {
     return (
         <MuLink
             onClick={() => {
-                // increaseCatClicks(cat?.id)
-                // dispatch(increaseCatClicksRedux(cat?.id))
+                increaseCatClicks(cat?.id)
+                dispatch(increaseCatClicksRedux(cat?.id))
                 console.log(window.location)
 
             }}
             component={RouterLink}
             to={`/cats/${cat?.id}`}
-            sx={{ color: "black", textDecoration: "none" }}
+            sx={{ color: "black", textDecoration: "none", }}
         >
             <ListItem
                 key={cat?.catName}
@@ -44,6 +44,7 @@ const ListCard = ({ cat }: { cat: ICat }) => {
                     sx={{
                         backgroundColor: window?.location?.pathname === `/cats/${cat?.id}` ? "primary.dark" : "inherit",
                         color: window?.location?.pathname === `/cats/${cat?.id}` ? "white" : "inherit",
+                        '&:hover': { backgroundColor: "primary.dark", color: null }
                     }}
                 >
                     <ListItemText primary={cat?.catName} />
