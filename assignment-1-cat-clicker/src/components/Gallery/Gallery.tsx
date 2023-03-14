@@ -6,8 +6,8 @@ import AnimalCard from '../AnimalCard/AnimalCard';
 
 interface IProps {
     allCats: ICat[]
-    status: "IDLE" | "LOADING" | "SUCCESS" | "FAILED"
-    error: null | unknown
+    status?: "IDLE" | "LOADING" | "SUCCESS" | "FAILED"
+    error?: null | unknown
     page: "HOMEPAGE" | "CATPAGE"
     title: string | number
 }

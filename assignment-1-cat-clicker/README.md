@@ -1,46 +1,39 @@
-# Getting Started with Create React App
+# Cat Clicker - Assignment 1 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### LIVE : https://el-spectra-assignment-1-cat-clicker.vercel.app/
+### Demo Video :   
 
-## Available Scripts
+### Tech Stack
+1. React JS 
+2. Firebase
+3. TypeScript
+4. Redux
+5. Material UI (as mentioned in the PDF)
 
-In the project directory, you can run:
 
-### `npm start`
+# Components
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Animal Card
 
-### `npm test`
+| Prop  | Description                                | Type                                |
+| ----- | ------------------------------------------ | ----------------------------------- |
+| cat*  | Cat object                                 | ICat Interface from "../interfaces" |
+| page* | On which page you want to render this card | string : "HOMEPAGE" or "CATPAGE"    |
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Gallery
+| Prop     | Description                                   | Type                                   |
+| -------- | --------------------------------------------- | -------------------------------------- |
+| allCats* | allCats object                                | ICat [] Interface from "../interfaces" |
+| page*    | On which page you want to render this gallery | string : "HOMEPAGE" or "CATPAGE"       |
+| title*   | Title of the image gallery                    | string or number                       |
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Toast
+| Prop              | Description                                                     | Type                         |
+| ----------------- | --------------------------------------------------------------- | ---------------------------- |
+| isSnackbarOpen*   | React State                                                     | boolean                      |
+| handleToastClick* | Function to set the state to true                               | () => void                   |
+| handleToastClose* | Function to set the state to false                              | (event: React.SyntheticEvent | Event, reason?: string) => void |
+| message*          | Message or label for the toast                                  | string or number             |
+| autoHideDuration* | For closing the toast after X milliseconds (by default 3500 ms) | number                       |

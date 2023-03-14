@@ -29,10 +29,9 @@ const style = {
 interface IProps {
     isModalOpen: boolean
     handleModalClose: () => void
-    getCatAgeName?: any
 }
 
-export default function AppModal({ isModalOpen, handleModalClose, getCatAgeName }: IProps) {
+export default function AppModal({ isModalOpen, handleModalClose }: IProps) {
     const [isFormSubmitting, setIsFormSubmitting] = useState<boolean>(false)
 
     return (
